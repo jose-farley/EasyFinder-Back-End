@@ -1,4 +1,5 @@
-import { UserDTO } from "../../DTO/user/UserDTO";
+
+import { UserDTO } from "../../contract/user/UserDTO";
 import { prisma } from "../../database";
 import { ResponseModel } from "../../util/ResponseModel";
 import { IUserDAO } from "../interfaces/IUserDAO";
@@ -25,8 +26,26 @@ export class UserDAO implements IUserDAO {
     remove() {
         throw new Error("Method not implemented.");
     }
-    fetch() {
+    async fetch() {
         throw new Error("Method not implemented.");
+    }
+    async list(): Promise<ResponseModel> {
+        try {
+            let result = await prisma.user.findMany({
+                select:{
+                    email:true,
+                    name:true,
+                    phoneNumber:true,
+                    homeNumber:true,
+                    id:true,
+                    street:true,
+                    state:true
+                }
+            });
+            return new ResponseModel(result, false);
+       } catch (error) {
+            return new ResponseModel("something went wrong while listing users", true);
+       }  
     }
     update() {
         throw new Error("Method not implemented.");

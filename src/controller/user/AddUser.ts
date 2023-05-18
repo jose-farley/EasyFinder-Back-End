@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import { UserDTO } from "../../DTO/user/UserDTO";
 import { ResponseModel } from "../../util/ResponseModel";
-import { UserDAO } from "../../DAO/implementations/UserDAO";
-
+import { UserDAO } from "../../connection/implementations/UserDAO";
+import { UserDTO } from "../../contract/user/UserDTO";
 
 export class AddUserController {
     async hadnle(req:Request, res:Response){
