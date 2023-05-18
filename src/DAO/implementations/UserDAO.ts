@@ -1,8 +1,26 @@
+import { UserDTO } from "../../DTO/user/UserDTO";
+import { prisma } from "../../database";
+import { ResponseModel } from "../../util/ResponseModel";
 import { IUserDAO } from "../interfaces/IUserDAO";
 
 export class UserDAO implements IUserDAO {
-    save() {
-        throw new Error("Method not implemented.");
+    async save(user:UserDTO) {
+       try {
+            await prisma.user.create({
+                data:{
+                  name:user.getName(),
+                  email: user.getEmail(),
+                  homeNumber: user.getHomeNumber(),
+                  password: user.getPassword(),
+                  phoneNumber:user.getPhoneNumber(),
+                  state: user.getState(),
+                  street:user.getStreet(),
+                }
+            })
+            return new ResponseModel("successfully registered user", false)
+       } catch (error) {
+            return new ResponseModel("something went wrong while registering the user", true)
+       }
     }
     remove() {
         throw new Error("Method not implemented.");

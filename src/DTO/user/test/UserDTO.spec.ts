@@ -14,3 +14,33 @@ describe("Passando um email de usuário válido", ()=>{
         expect(()=> new UserDTO(genericUser)).not.toThrow(new Error("Invalid E-mail"))
     })
 })
+describe("Passando uma senha de usuário com menos de 8 caracteres", ()=>{
+    it("Espara-se que retorne um erro", ()=>{  
+        genericUser.password = "123"
+        expect(()=> new UserDTO(genericUser)).toThrow(new Error("Invalid Password"))
+    })
+})
+describe("Passando uma senha de usuário que não contém números", ()=>{
+    it("Espara-se que retorne um erro", ()=>{  
+        genericUser.password = "senhaSemNumero"
+        expect(()=> new UserDTO(genericUser)).toThrow(new Error("Invalid Password"))
+    })
+})
+describe("Passando uma senha de usuário valida", ()=>{
+    it("Espara-se que retorne um erro", ()=>{  
+        genericUser.password = "SenhaForte123"
+        expect(()=> new UserDTO(genericUser)).not.toThrow(new Error("Invalid Password"))
+    })
+})
+describe("Passando um número de telefone inválido", ()=>{
+    it("Espara-se que retorne um erro", ()=>{  
+        genericUser.phoneNumber = "88888888888888"
+        expect(()=> new UserDTO(genericUser)).toThrow(new Error("Invalid Phone Number"))
+    })
+})
+describe("Passando um número de telefone inválido", ()=>{
+    it("Espara-se que retorne um erro", ()=>{  
+        genericUser.phoneNumber = "(88) 98989-2898"
+        expect(()=> new UserDTO(genericUser)).not.toThrow(new Error("Invalid Phone Number"))
+    })
+})
