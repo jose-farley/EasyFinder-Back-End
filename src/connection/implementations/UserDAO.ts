@@ -1,5 +1,6 @@
 
-import { UserDTO } from "../../contract/user/UserDTO";
+import { UserLoginDTO } from "../../contract/user/UserLoginDTO";
+import { UserDTO } from "../../contract/user/UserRegisterDTO";
 import { prisma } from "../../database";
 import { ResponseModel } from "../../util/ResponseModel";
 import { IUserDAO } from "../interfaces/IUserDAO";
@@ -50,8 +51,16 @@ export class UserDAO implements IUserDAO {
     update() {
         throw new Error("Method not implemented.");
     }
-    login() {
-        throw new Error("Method not implemented.");
+    async login(data:UserLoginDTO):Promise<ResponseModel> {
+        try {
+            let user = await prisma.user.findUnique({where:{
+                email:data.getEmail()
+            }})
+            if(!user) throw new Error("User not found");
+            return new ResponseModel(user, false)
+        } catch (error) {
+            return new ResponseModel(error.message, true)
+        }
     }
     
 }

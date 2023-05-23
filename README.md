@@ -20,7 +20,8 @@ Link: https://www.figma.com/file/Xpws2MlJQB5UgqTMW9M4ew/Easy-Finder?node-id=0%3A
 2. Instale as dependências com o comando: yarn install
 3. Crie um arquivo .env na raiz do projeto
 4. Dentro do arquivo .env adicione a seguinte variável: DATABASE_URL = "file:./dev.db"
-5. Execute o comando yarn prisma generate
-6. Agora para executar você pode usar o comando yarn dev
+5. Dentro do arquivo .env adicione uma variável chamada JWT_SECRET
+6. Execute o comando yarn prisma generate
+7. Agora para executar você pode usar o comando yarn dev
 
 

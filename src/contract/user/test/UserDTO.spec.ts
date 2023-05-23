@@ -1,6 +1,6 @@
 import {describe, it, expect} from 'vitest';
 import { genericUser } from './data';
-import { UserDTO } from '../UserDTO';
+import { UserDTO } from '../UserRegisterDTO';
 
 describe("Passando um email de usuário inválido", ()=>{
     it("Espara-se que retorne um erro", ()=>{  

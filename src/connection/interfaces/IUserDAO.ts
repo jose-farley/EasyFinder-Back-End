@@ -1,5 +1,6 @@
 
-import { UserDTO } from "../../contract/user/UserDTO";
+import { UserLoginDTO } from "../../contract/user/UserLoginDTO";
+import { UserDTO } from "../../contract/user/UserRegisterDTO";
 import { ResponseModel } from "../../util/ResponseModel";
 
 export interface IUserDAO {
@@ -8,5 +9,5 @@ export interface IUserDAO {
     list():Promise<ResponseModel>;
     fetch();
     update();
-    login();
+    login(data:UserLoginDTO):Promise<ResponseModel>
 }
