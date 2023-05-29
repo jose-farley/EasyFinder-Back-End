@@ -7,12 +7,7 @@ import jwt from 'jsonwebtoken'
 export class UserLogin {
     async handle(req:Request, res:Response){
         try{   
-            if(!req.body.email && !req.body.password){
-                return res.json(new ResponseModel("E-mail e senha não foram fornecidos", true))
-            }
-            if(req.body.email== undefined || req.body.password == undefined){
-                return res.json(new ResponseModel("E-mail ou senha não foram fornecidos", true))
-            }
+            if(this.passwordAndEmailHasBeenPassed(req).has_error==true) return this.passwordAndEmailHasBeenPassed(req)
             let userData = new UserLoginDTO(req.body);      
             let connection = new UserDAO();
             let result = await connection.login(userData);
@@ -26,6 +21,14 @@ export class UserLogin {
 
         }catch(error){
             return res.json(new ResponseModel(error.message, true))
+        }
+    }
+    private passwordAndEmailHasBeenPassed(request:Request){
+        if(!request.body.email && !request.body.password){
+            return new ResponseModel("E-mail e senha não foram fornecidos", true)
+        }
+        if(request.body.email== undefined || request.body.password == undefined){
+            return new ResponseModel("E-mail ou senha não foram fornecidos", true)
         }
     }
 }
