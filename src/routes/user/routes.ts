@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { Request, Response } from "express";
-import { AddUserController } from "../../controller/user/AddUser";
-import { ListUsers } from "../../controller/user/ListUsers";
+import { AddUserController } from "../../controller/user/Add";
+import { ListUsers } from "../../controller/user/List";
 import { UserLogin } from "../../controller/user/Login";
 import { RemoveUser } from "../../controller/user/Remove";
 import { UserUpdate } from "../../controller/user/Update";

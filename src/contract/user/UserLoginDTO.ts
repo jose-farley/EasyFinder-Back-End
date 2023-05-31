@@ -12,14 +12,14 @@ export class UserLoginDTO {
         this.setPassword(data.password)
         this.setEmail(data.email)
     }
-    setPassword(password:string){
+    private setPassword(password:string){
         if(this.checkPassword(password)){
             this.data.password = password
         }else{
             throw new Error("Invalid Password");
         }
     }
-    setEmail(email:string){
+    private setEmail(email:string){
         if(this.checkEmail(email)){
             this.data.email = email
         }else{

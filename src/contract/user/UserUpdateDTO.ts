@@ -55,7 +55,7 @@ export class UserUpdateDTO {
     getId(){
         return this.data.id
     }
-    setName(name:string){
+    private setName(name:string){
         if(name.length >= 4){
             this.data.name = name;
         }else{
@@ -63,60 +63,60 @@ export class UserUpdateDTO {
         }
         
     }
-    setPassword(password:string){
+    private setPassword(password:string){
         if(password.length > 8){
             this.data.password = password
         }else{
             throw new Error("Invalid Password");
         }
     }
-    setEmail(email:string){
+    private setEmail(email:string){
         if(this.checkEmail(email)){
             this.data.email = email;
         }else{
             throw new Error("Invalid E-mail")
         }
     }
-    setState(state:string){
+    private setState(state:string){
         if(state.length>= 2){
             this.data.state = state;
         }else{
             throw new Error("Invalid State");
         }
     }
-    setStreet(street:string){
+    private setStreet(street:string){
         if(street.length>= 5){
             this.data.street = street;
         }else{
             throw new Error("Invalid Street");
         }
     }
-    setHomeNumber(homeNumber:number){
+    private setHomeNumber(homeNumber:number){
         if(homeNumber>0){
             this.data.homeNumber = homeNumber;
         }else{
             throw new Error("Invalid Home Number");
         }
     }
-    setPhoneNumber(phoneNumber:string){
+    private setPhoneNumber(phoneNumber:string){
         if(this.checkPhoneNumber(phoneNumber)){
             this.data.phoneNumber = phoneNumber;
         }else{
             throw new Error("Invalid Phone Number");
         }
     }
-    setId(id:string){
+    private setId(id:string){
         if(id.length>8){
             this.data.id=id
         }else{
             throw new Error("Invalid user id");
         }
     }
-    checkEmail(email:string) {
+    private checkEmail(email:string) {
         let emailPattern =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
          return emailPattern.test(email); 
     }
-    checkPhoneNumber(phoneNumber:string){
+    private checkPhoneNumber(phoneNumber:string){
         let phoneNumberPattern = /^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$/
         return phoneNumberPattern.test(phoneNumber);
     }
