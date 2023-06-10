@@ -8,22 +8,22 @@ datasource db {
 }
 
 model User {
-  id          String      @id @unique @default(uuid())
+  id          String       @id @default(uuid())
   name        String
   password    String
-  email       String      @unique
+  email       String
   state       String
   street      String
   homeNumber  Int
   phoneNumber String
-  lostObjects lostObject?
+  lostObjects lostObject[]
 }
 
 model lostObject {
   id          String @id @default(uuid())
   name        String
   description String
-  owner       String @unique
+  owner       String
   location    String
   user        User   @relation(fields: [owner], references: [id])
 }

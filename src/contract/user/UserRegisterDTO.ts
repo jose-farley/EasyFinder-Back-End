@@ -58,7 +58,7 @@ export class UserDTO {
         
     }
     private setPassword(password:string){
-        if(this.checkPassword(password)){
+        if(password.length > 8){
             this.data.password = bcrypt.hashSync(password, 12);
         }else{
             throw new Error("Invalid Password");
