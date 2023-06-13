@@ -36,9 +36,6 @@ export class UserDAO implements IUserDAO {
             return new ResponseModel("invalid user id", true)
        }
     }
-    async fetch() {
-        throw new Error("Method not implemented.");
-    }
     async list(): Promise<ResponseModel> {
         try {
             let result = await prisma.user.findMany({
@@ -83,6 +80,14 @@ export class UserDAO implements IUserDAO {
                 email:data.getEmail()
             }})
             if(!user) throw new Error("User not found");
+            return new ResponseModel(user, false)
+        } catch (error) {
+            return new ResponseModel(error.message, true)
+        }
+    }
+    async fetch(id:string){
+        try {
+            let user =  await prisma.user.findUnique({where:{id:id}})
             return new ResponseModel(user, false)
         } catch (error) {
             return new ResponseModel(error.message, true)

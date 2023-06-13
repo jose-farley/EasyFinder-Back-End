@@ -7,10 +7,14 @@ import { RemoveUser } from "../../controller/user/Remove";
 import { UserUpdate } from "../../controller/user/Update";
 import multer from 'multer';
 import { multerConfig } from "../../config/multer";
+import { FetchUser } from "../../controller/user/Fetch";
 const userRoutes = Router();
 
 userRoutes.get("/user", async (req:Request, res:Response)=>{
    return  await new ListUsers().handle(req, res);
+})
+userRoutes.get("/user/:id", async (req:Request, res:Response)=>{
+   return await new FetchUser().handle(req, res);
 })
 userRoutes.post("/user", multer(multerConfig).single("userImage"), async (req:Request, res:Response)=>{
    return  await new AddUserController().hadnle(req, res);
