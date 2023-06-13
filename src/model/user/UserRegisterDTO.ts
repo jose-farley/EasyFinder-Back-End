@@ -5,8 +5,12 @@ interface data {
      email:string
      state:string
      street:string
-     homeNumber:number
+     perfilImage:string
+     homeNumber:string
      phoneNumber:string
+}
+interface file {
+    filename:string
 }
 export class UserDTO {
     private data:data  = {
@@ -15,11 +19,12 @@ export class UserDTO {
         email: "",
         state: "",
         street: "",
-        homeNumber: 0,
+        perfilImage:"",
+        homeNumber: "",
         phoneNumber: ""
     }
 
-    constructor(received:data){
+    constructor(received:data, file:file){
         this.setName(received.name);
         this.setEmail(received.email);
         this.setPassword(received.password);
@@ -27,6 +32,17 @@ export class UserDTO {
         this.setStreet(received.street);
         this.setHomeNumber(received.homeNumber);
         this.setPhoneNumber(received.phoneNumber);
+        this.setUserImage(file.filename);
+    }
+    private setUserImage(perfilImage: string) {
+        if(perfilImage == undefined){
+            this.data.perfilImage = "defaultUser.png";
+        }else{
+            this.data.perfilImage = perfilImage;
+        }
+    }
+    getPerfilImage():string{
+        return this.data.perfilImage;
     }
     getName():string{
         return this.data.name
@@ -37,7 +53,7 @@ export class UserDTO {
     getEmail():string{
         return this.data.email
     }
-    getHomeNumber():number{
+    getHomeNumber():string{
         return this.data.homeNumber
     }
     getStreet():string{
@@ -85,8 +101,8 @@ export class UserDTO {
             throw new Error("Invalid Street");
         }
     }
-    private setHomeNumber(homeNumber:number){
-        if(homeNumber>0){
+    private setHomeNumber(homeNumber:string){
+        if(homeNumber.length>0){
             this.data.homeNumber = homeNumber;
         }else{
             throw new Error("Invalid Home Number");

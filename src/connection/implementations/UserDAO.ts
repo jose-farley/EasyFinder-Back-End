@@ -1,7 +1,7 @@
 
-import { UserLoginDTO } from "../../contract/user/UserLoginDTO";
-import { UserDTO } from "../../contract/user/UserRegisterDTO";
-import { UserUpdateDTO } from "../../contract/user/UserUpdateDTO";
+import { UserLoginDTO } from "../../model/user/UserLoginDTO";
+import { UserDTO } from "../../model/user/UserRegisterDTO";
+import { UserUpdateDTO } from "../../model/user/UserUpdateDTO";
 import { prisma } from "../../database";
 import { ResponseModel } from "../../util/ResponseModel";
 import { IUserDAO } from "../interfaces/IUserDAO";
@@ -13,10 +13,11 @@ export class UserDAO implements IUserDAO {
                 data:{
                   name:user.getName(),
                   email: user.getEmail(),
-                  homeNumber: user.getHomeNumber(),
+                  homeNumber: parseInt(user.getHomeNumber()),
                   password: user.getPassword(),
                   phoneNumber:user.getPhoneNumber(),
                   state: user.getState(),
+                  perfilImage:user.getPerfilImage(),
                   street:user.getStreet(),
                 }
             })
@@ -48,7 +49,8 @@ export class UserDAO implements IUserDAO {
                     homeNumber:true,
                     id:true,
                     street:true,
-                    state:true
+                    state:true,
+                    perfilImage:true,
                 }
             });
             return new ResponseModel(result, false);

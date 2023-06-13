@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { LostObjectRegisterDTO } from "../../contract/lostObject/LostObjectRegisterDTO";
+import { LostObjectRegisterDTO } from "../../model/lostObject/LostObjectRegisterDTO";
 import { LostObjectDAO } from "../../connection/implementations/LostObjectDAO";
 import { ResponseModel } from "../../util/ResponseModel";
 

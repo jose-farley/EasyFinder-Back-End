@@ -11,7 +11,8 @@ export class LostObjectDAO implements ILostObjectDAO {
                 name:data.getName(),
                 description:data.getDescription(),
                 location:data.getLocation(),
-                owner:data.getOwner()
+                owner:data.getOwner(),
+                isLosted: data.getIsLosted()
             }}) 
             return new ResponseModel("successfully registered lost object", false)
         } catch (error) {

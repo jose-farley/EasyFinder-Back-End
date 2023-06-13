@@ -1,7 +1,7 @@
 import {Request, Response} from 'express'
 import { UserDAO } from '../../connection/implementations/UserDAO';
 import { ResponseModel } from '../../util/ResponseModel';
-import { UserLoginDTO } from '../../contract/user/UserLoginDTO';
+import { UserLoginDTO } from '../../model/user/UserLoginDTO';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 export class UserLogin {
@@ -30,5 +30,6 @@ export class UserLogin {
         if(request.body.email== undefined || request.body.password == undefined){
             return new ResponseModel("E-mail ou senha não foram fornecidos", true)
         }
+        return new ResponseModel("E-mail ou senha não foram fornecidos", true)
     }
 }

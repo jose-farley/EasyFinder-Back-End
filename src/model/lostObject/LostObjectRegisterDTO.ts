@@ -1,5 +1,6 @@
 interface data {
     name:string
+    isLosted:boolean
     description:string
     location:string
     owner:string
@@ -9,7 +10,8 @@ export class LostObjectRegisterDTO {
         name: "",
         description: "",
         owner: "",
-        location: ""
+        location: "",
+        isLosted: true
     }
     constructor(received:data){
         this.setName(received.name);
@@ -32,6 +34,9 @@ export class LostObjectRegisterDTO {
         }
         this.data.description = description
     }
+    private setIsLosted(isLosted:boolean){
+        this.data.isLosted = isLosted
+    }
     private setOwner(id:string){
         if(id == undefined || id.length < 8){
             throw new Error("Invalid owner id")
@@ -46,6 +51,9 @@ export class LostObjectRegisterDTO {
     }
     getOwner():string {
         return this.data.owner
+    }
+    getIsLosted():boolean{
+        return this.data.isLosted
     }
     getLocation(){
         return this.data.location

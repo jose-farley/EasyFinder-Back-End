@@ -11,19 +11,21 @@ model User {
   id          String       @id @default(uuid())
   name        String
   password    String
-  email       String
+  email       String       @unique
   state       String
   street      String
   homeNumber  Int
+  perfilImage String
   phoneNumber String
   lostObjects lostObject[]
 }
 
 model lostObject {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   description String
   owner       String
+  isLosted    Boolean
   location    String
-  user        User   @relation(fields: [owner], references: [id])
+  user        User    @relation(fields: [owner], references: [id])
 }

@@ -1,5 +1,5 @@
 import { UserDAO } from '../../connection/implementations/UserDAO'
-import { UserUpdateDTO } from '../../contract/user/UserUpdateDTO';
+import { UserUpdateDTO } from '../../model/user/UserUpdateDTO';
 import { Request, Response } from 'express';
 import { ResponseModel } from '../../util/ResponseModel';
 export class UserUpdate {

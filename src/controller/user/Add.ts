@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { ResponseModel } from "../../util/ResponseModel";
 import { UserDAO } from "../../connection/implementations/UserDAO";
-import { UserDTO } from "../../contract/user/UserRegisterDTO";
+import { UserDTO } from "../../model/user/UserRegisterDTO";
 
 export class AddUserController {
     async hadnle(req:Request, res:Response){
         try {
             let acess = new UserDAO();
-            const user = new UserDTO(req.body); 
+            const user = new UserDTO(req.body, req.file); 
             let result = await acess.save(user);
             if(result.has_error){
                 return res.status(400).json(result)
