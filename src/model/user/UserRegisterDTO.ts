@@ -24,7 +24,7 @@ export class UserDTO {
         phoneNumber: ""
     }
 
-    constructor(received:data, file:file){
+    constructor(received:data, file:string){
         this.setName(received.name);
         this.setEmail(received.email);
         this.setPassword(received.password);
@@ -32,7 +32,7 @@ export class UserDTO {
         this.setStreet(received.street);
         this.setHomeNumber(received.homeNumber);
         this.setPhoneNumber(received.phoneNumber);
-        this.setUserImage(file.filename);
+        this.setUserImage(file);
     }
     private setUserImage(perfilImage: string) {
         if(perfilImage == undefined){

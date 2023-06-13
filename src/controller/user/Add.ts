@@ -6,8 +6,15 @@ import { UserDTO } from "../../model/user/UserRegisterDTO";
 export class AddUserController {
     async hadnle(req:Request, res:Response){
         try {
+            let ifFileIsEmpty = ''
+            if(req.file == undefined) ifFileIsEmpty = "defaultUser.png"
             let acess = new UserDAO();
-            const user = new UserDTO(req.body, req.file); 
+            let user:UserDTO
+            if(ifFileIsEmpty.length >0){
+                user = new UserDTO(req.body, ifFileIsEmpty); 
+            }else{
+                user = new UserDTO(req.body, req.file.filename)
+            }
             let result = await acess.save(user);
             if(result.has_error){
                 return res.status(400).json(result)
