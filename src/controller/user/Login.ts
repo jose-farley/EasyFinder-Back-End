@@ -6,8 +6,10 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 export class UserLogin {
     async handle(req:Request, res:Response){
-        try{   
-            if(this.passwordAndEmailHasBeenPassed(req).has_error==true) return this.passwordAndEmailHasBeenPassed(req)
+        try{ 
+            console.log(req.body)
+            let werePassed = this.passwordAndEmailHasBeenPassed(req);
+            if(werePassed.has_error==true) return res.status(400).json(werePassed)
             let userData = new UserLoginDTO(req.body);      
             let connection = new UserDAO();
             let result = await connection.login(userData);
@@ -24,12 +26,12 @@ export class UserLogin {
         }
     }
     private passwordAndEmailHasBeenPassed(request:Request){
-        if(!request.body.email && !request.body.password){
+        if((request.body.email == undefined) && (request.body.password== undefined)){
             return new ResponseModel("E-mail e senha não foram fornecidos", true)
         }
         if(request.body.email== undefined || request.body.password == undefined){
             return new ResponseModel("E-mail ou senha não foram fornecidos", true)
         }
-        return new ResponseModel("E-mail ou senha não foram fornecidos", true)
+        return new ResponseModel("everyting okay", false)
     }
 }
