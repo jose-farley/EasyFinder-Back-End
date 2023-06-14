@@ -6,6 +6,16 @@ import { prisma } from "../../database";
 import { ResponseModel } from "../../util/ResponseModel";
 import { IUserDAO } from "../interfaces/IUserDAO";
 
+interface UserObject {
+    name: string;
+    email: string;
+    state: string;
+    street: string;
+    perfilImage: string;
+    homeNumber: number;
+    phoneNumber: string;
+  }
+
 export class UserDAO implements IUserDAO {
     async save(user:UserDTO) {
        try {
@@ -85,10 +95,20 @@ export class UserDAO implements IUserDAO {
             return new ResponseModel(error.message, true)
         }
     }
+    
     async fetch(id:string){
         try {
             let user =  await prisma.user.findUnique({where:{id:id}})
-            return new ResponseModel(user, false)
+            const userObject: UserObject = {
+                name: user.name,
+                email: user.email,
+                state: user.state,
+                street: user.street,
+                perfilImage: user.perfilImage,
+                homeNumber: user.homeNumber,
+                phoneNumber: user.phoneNumber,
+              };
+            return new ResponseModel(userObject, false)
         } catch (error) {
             return new ResponseModel(error.message, true)
         }
