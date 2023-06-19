@@ -1,42 +1,40 @@
 interface data {
+    id:string
     name:string
     isLosted:boolean
     description:string
     location:string
     owner:string
-    objectImage:string
 }
-interface file {
-    filename:string
-}
-export class LostObjectRegisterDTO {
+export class LostObjectUpdateDTO {
     private data:data = {
+        id:"",
         name: "",
         description: "",
         owner: "",
         location: "",
-        objectImage: "",
         isLosted: true
     }
-    constructor(received:data, file:string){
-        this.setName(received.name);
+    constructor(received:data){
+        this.setId(received.id)
+        this.setName(received.name)
         this.setDescription(received.description)
         this.setOwner(received.owner)
         this.setLocation(received.location)
-        this.setObjectImage(file)
+        this.setIsLosted(received.isLosted)
+    }
+    private setId(id:string){
+        if(id.length>8){
+            this.data.id=id
+        }else{
+            throw new Error("Invalid object id");
+        }
     }
     private setName(name:string){
         if(name == undefined || name.length < 2){
             throw new Error("Invalid object name")
         }
         this.data.name=name
-    }
-    private setObjectImage(objectImage: string) {
-        if(objectImage == undefined){
-            this.data.objectImage = "defaultObject.png";
-        }else{
-            this.data.objectImage = objectImage;
-        }
     }
     private setLocation(location:string){
         this.data.location=location
@@ -55,6 +53,9 @@ export class LostObjectRegisterDTO {
             throw new Error("Invalid owner id")
         }
         this.data.owner = id
+    }
+    getId(){
+        return this.data.id
     }
     getName():string{
         return this.data.name

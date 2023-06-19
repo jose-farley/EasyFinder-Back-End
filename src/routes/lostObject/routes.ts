@@ -4,6 +4,7 @@ import { AddLostObjectController } from "../../controller/lostObject/Add";
 import { ListLostObjects } from "../../controller/lostObject/List";
 import { FetchLostObject } from "../../controller/lostObject/Fetch";
 import { RemoveLostObject } from "../../controller/lostObject/Remove";
+import { LostObjectUpdate } from "../../controller/lostObject/Update";
 const lostObjectRoutes = Router();
 
 lostObjectRoutes.post("/lostObject", async (req:Request, res:Response)=>{
@@ -18,4 +19,7 @@ lostObjectRoutes.get("/lostObject/:id", async (req:Request, res:Response)=>{
 lostObjectRoutes.delete("/lostObject", async (req:Request, res:Response)=>{
     return await new RemoveLostObject().handle(req, res);
 })
+lostObjectRoutes.put("/lostObject/", async (req:Request, res:Response)=>{
+    return  await new LostObjectUpdate().handle(req, res);
+ })
 export {lostObjectRoutes}

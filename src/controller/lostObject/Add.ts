@@ -6,8 +6,15 @@ import { ResponseModel } from "../../util/ResponseModel";
 export class AddLostObjectController {
     async handle(req:Request, res:Response){
         try {
-            let objectDTO = new LostObjectRegisterDTO(req.body);
             let connection = new LostObjectDAO();
+            let ifFileIsEmpty = ''
+            if(req.file == undefined) ifFileIsEmpty = "defaultUser.png"
+            let objectDTO:LostObjectRegisterDTO
+            if(ifFileIsEmpty.length >0){
+                objectDTO = new LostObjectRegisterDTO(req.body, ifFileIsEmpty); 
+            }else{
+                objectDTO = new LostObjectRegisterDTO(req.body, req.file.filename)
+            }
             let result = await connection.save(objectDTO)
             if(result.has_error) return res.status(400).json(result)
             res.status(200).json(result)

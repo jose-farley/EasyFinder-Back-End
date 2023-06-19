@@ -1,4 +1,5 @@
 import { LostObjectRegisterDTO } from "../../model/lostObject/LostObjectRegisterDTO";
+import { LostObjectUpdateDTO } from "../../model/lostObject/LostObjectUpdateDTO";
 import { prisma } from "../../database";
 import { ResponseModel } from "../../util/ResponseModel";
 import { ILostObjectDAO } from "../interfaces/ILostObjectDAO";
@@ -21,12 +22,48 @@ export class LostObjectDAO implements ILostObjectDAO {
             return new ResponseModel(error.message, true)
         }
     }
-    async list(): Promise<ResponseModel> {
+    async list(req:Request): Promise<ResponseModel> {
         try {
-            let lostObjects = await prisma.lostObject.findMany({})  
+            let lostObjects = await prisma.lostObject.findMany({
+                where: {
+                  user: {
+                    name: {
+                        contains: req.body
+                    }
+                  },
+                  description: {
+                    contains: req.body
+                  },
+                  isLosted: {
+                    equals: req.body
+                  },
+                  location: {
+                    contains: req.body
+                  }
+                }
+              })  
             return new ResponseModel(lostObjects, false)
         } catch (error) {
             return new ResponseModel(error.message, true)
+        }
+    }
+    async update(data:LostObjectUpdateDTO) {
+        try {
+            await prisma.lostObject.update({where:{
+                id:data.getId()
+            }, data:{
+                description:data.getDescription(),
+                isLosted:data.getIsLosted(),
+                location:data.getLocation(),
+                owner:data.getOwner(),
+                name:data.getName()
+                //TODO: USER e OWNER?
+                // user:data.getUser                
+            }})
+            return new ResponseModel("user updated successfully", false)
+        } catch (error) {
+            return new ResponseModel("something went wrong while updating user", true);
+ 
         }
     }
     async save(data:LostObjectRegisterDTO){
