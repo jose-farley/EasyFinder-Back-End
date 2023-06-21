@@ -34,16 +34,6 @@ export class UserDTO {
         this.setPhoneNumber(received.phoneNumber);
         this.setUserImage(file);
     }
-    private setUserImage(perfilImage: string) {
-        if(perfilImage == undefined){
-            this.data.perfilImage = "defaultUser.png";
-        }else{
-            this.data.perfilImage = perfilImage;
-        }
-    }
-    getPerfilImage():string{
-        return this.data.perfilImage;
-    }
     getName():string{
         return this.data.name
     }
@@ -64,6 +54,16 @@ export class UserDTO {
     }
     getPhoneNumber():string{
         return this.data.phoneNumber
+    }
+    getPerfilImage():string{
+        return this.data.perfilImage;
+    }
+    private setUserImage(perfilImage: string) {
+        if(perfilImage == undefined){
+            this.data.perfilImage = "defaultUser.png";
+        }else{
+            this.data.perfilImage = perfilImage;
+        }
     }
     private setName(name:string){
         if(name.length >= 4){

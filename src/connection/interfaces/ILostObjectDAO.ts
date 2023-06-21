@@ -5,5 +5,6 @@ export interface ILostObjectDAO {
     save(data:LostObjectRegisterDTO):Promise<ResponseModel>;
     list(req:Request):Promise<ResponseModel>;
     remove(id:string):Promise<ResponseModel>;
-    fetch(id:string):Promise<ResponseModel>;
+    fetch(id: string):Promise<ResponseModel>;
+    filter(filter: string, found: boolean):Promise<ResponseModel>;
 }

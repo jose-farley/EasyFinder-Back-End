@@ -5,6 +5,10 @@ interface data {
     description:string
     location:string
     owner:string
+    objectImage:string
+}
+interface file {
+    filename:string
 }
 export class LostObjectUpdateDTO {
     private data:data = {
@@ -13,15 +17,17 @@ export class LostObjectUpdateDTO {
         description: "",
         owner: "",
         location: "",
+        objectImage: "",
         isLosted: true
     }
-    constructor(received:data){
+    constructor(received:data, file:string){
         this.setId(received.id)
         this.setName(received.name)
         this.setDescription(received.description)
         this.setOwner(received.owner)
         this.setLocation(received.location)
         this.setIsLosted(received.isLosted)
+        this.setObjectImage(file)
     }
     private setId(id:string){
         if(id.length>8){
@@ -36,17 +42,31 @@ export class LostObjectUpdateDTO {
         }
         this.data.name=name
     }
+    private setObjectImage(objectImage: string) {
+        if(objectImage == undefined){
+            this.data.objectImage = "defaultObject.png";
+        }else{
+            this.data.objectImage = objectImage;
+        }
+    }
     private setLocation(location:string){
+        if(location == undefined) {
+            throw new Error("Invalid location")            
+        }
         this.data.location=location
     }
     private setDescription(description:string){
         if(description==undefined || description.length < 5){
-            throw new Error("invalid description")
+            throw new Error("Invalid description")
         }
         this.data.description = description
     }
     private setIsLosted(isLosted:boolean){
-        this.data.isLosted = isLosted
+        if(isLosted == undefined){
+            throw new Error("Invalid lost status")
+        } else {
+            this.data.isLosted = isLosted
+        }
     }
     private setOwner(id:string){
         if(id == undefined || id.length < 8){
@@ -71,5 +91,8 @@ export class LostObjectUpdateDTO {
     }
     getLocation(){
         return this.data.location
+    }
+    getObjectImage(){
+        return this.data.objectImage
     }
 }

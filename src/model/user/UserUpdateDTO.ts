@@ -8,6 +8,10 @@ interface data {
      street:string
      homeNumber:number
      phoneNumber:string
+     perfilImage:string
+}
+interface file {
+    filename:string
 }
 export class UserUpdateDTO {
     private data:data  = {
@@ -17,11 +21,12 @@ export class UserUpdateDTO {
         email: "",
         state: "",
         street: "",
+        perfilImage:"",
         homeNumber: 0,
         phoneNumber: ""
     }
 
-    constructor(received:data){
+    constructor(received:data, file:string){
         this.setName(received.name);
         this.setEmail(received.email);
         this.setPassword(received.password);
@@ -29,7 +34,8 @@ export class UserUpdateDTO {
         this.setStreet(received.street);
         this.setHomeNumber(received.homeNumber);
         this.setPhoneNumber(received.phoneNumber);
-        this.setId(received.id)
+        this.setId(received.id);
+        this.setUserImage(file);
     }
     getName():string{
         return this.data.name
@@ -54,6 +60,16 @@ export class UserUpdateDTO {
     }
     getId(){
         return this.data.id
+    }
+    getPerfilImage():string{
+        return this.data.perfilImage;
+    }
+    private setUserImage(perfilImage: string) {
+        if(perfilImage == undefined){
+            this.data.perfilImage = "defaultUser.png";
+        }else{
+            this.data.perfilImage = perfilImage;
+        }
     }
     private setName(name:string){
         if(name.length >= 4){
