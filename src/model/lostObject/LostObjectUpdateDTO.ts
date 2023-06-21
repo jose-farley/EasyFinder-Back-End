@@ -89,10 +89,10 @@ export class LostObjectUpdateDTO {
     getIsLosted():boolean{
         return this.data.isLosted
     }
-    getLocation(){
+    getLocation():string{
         return this.data.location
     }
-    getObjectImage(){
+    getObjectImage():string{
         return this.data.objectImage
     }
 }

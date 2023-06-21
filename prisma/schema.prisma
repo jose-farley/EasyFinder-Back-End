@@ -27,5 +27,6 @@ model lostObject {
   owner       String
   isLosted    Boolean
   location    String
+  objectImage String
   user        User    @relation(fields: [owner], references: [id])
 }

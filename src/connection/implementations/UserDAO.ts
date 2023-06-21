@@ -75,6 +75,7 @@ export class UserDAO implements IUserDAO {
                 homeNumber:data.getHomeNumber(),
                 password:data.getPassword(),
                 phoneNumber:data.getPhoneNumber(),
+                perfilImage:data.getPerfilImage(),
                 state:data.getState(),
                 street:data.getStreet()
             }})
