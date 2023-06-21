@@ -8,7 +8,7 @@ export class AddLostObjectController {
         try {
             let connection = new LostObjectDAO();
             let ifFileIsEmpty = ''
-            if(req.file == undefined) ifFileIsEmpty = "defaultUser.png"
+            if(req.file == undefined) ifFileIsEmpty = "defaultObject.png"
             let objectDTO:LostObjectRegisterDTO
             if(ifFileIsEmpty.length >0){
                 objectDTO = new LostObjectRegisterDTO(req.body, ifFileIsEmpty); 

@@ -24,8 +24,9 @@ model lostObject {
   id          String  @id @default(uuid())
   name        String
   description String
-  owner       String
+  owner       String  
   isLosted    Boolean
   location    String
+  objectImage String
   user        User    @relation(fields: [owner], references: [id])
 }

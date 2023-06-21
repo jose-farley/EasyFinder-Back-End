@@ -38,6 +38,9 @@ export class LostObjectRegisterDTO {
             this.data.objectImage = objectImage;
         }
     }
+    public getObjectImage():string {
+        return this.data.objectImage;
+    }
     private setLocation(location:string){
         this.data.location=location
     }

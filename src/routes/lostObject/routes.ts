@@ -5,9 +5,11 @@ import { ListLostObjects } from "../../controller/lostObject/List";
 import { FetchLostObject } from "../../controller/lostObject/Fetch";
 import { RemoveLostObject } from "../../controller/lostObject/Remove";
 import { LostObjectUpdate } from "../../controller/lostObject/Update";
+import multer from "multer";
+import { multerConfig } from "../../config/multer";
 const lostObjectRoutes = Router();
 
-lostObjectRoutes.post("/lostObject", async (req:Request, res:Response)=>{
+lostObjectRoutes.post("/lostObject", multer(multerConfig).single("objectImage"), async (req:Request, res:Response)=>{
     return await new AddLostObjectController().handle(req, res);
 })
 lostObjectRoutes.get("/lostObject", async (req:Request, res:Response)=>{

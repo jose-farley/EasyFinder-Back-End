@@ -16,7 +16,7 @@ export class LostObjectDAO implements ILostObjectDAO {
     }
     async fetch(id: string): Promise<ResponseModel> {
         try {
-            let result = await prisma.lostObject.findUnique({where:{id:id}})
+            let result = await prisma.lostObject.findMany({where:{owner:id}})
             return new ResponseModel(result, false)
         } catch (error) {
             return new ResponseModel(error.message, true)
@@ -24,24 +24,7 @@ export class LostObjectDAO implements ILostObjectDAO {
     }
     async list(req:Request): Promise<ResponseModel> {
         try {
-            let lostObjects = await prisma.lostObject.findMany({
-                where: {
-                  user: {
-                    name: {
-                        contains: req.body
-                    }
-                  },
-                  description: {
-                    contains: req.body
-                  },
-                  isLosted: {
-                    equals: req.body
-                  },
-                  location: {
-                    contains: req.body
-                  }
-                }
-              })  
+            let lostObjects = await prisma.lostObject.findMany({})  
             return new ResponseModel(lostObjects, false)
         } catch (error) {
             return new ResponseModel(error.message, true)
@@ -73,6 +56,7 @@ export class LostObjectDAO implements ILostObjectDAO {
                 description:data.getDescription(),
                 location:data.getLocation(),
                 owner:data.getOwner(),
+                objectImage:data.getObjectImage(),
                 isLosted: data.getIsLosted()
             }}) 
             return new ResponseModel("successfully registered lost object", false)
