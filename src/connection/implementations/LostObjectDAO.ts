@@ -42,11 +42,12 @@ export class LostObjectDAO implements ILostObjectDAO {
                           contains: filter,
                         },
                       },
-                      {
-                        isLosted: {
-                          equals: found,
-                        },
-                      },
+                    //TODO Filtro para produto encontrado ou não encontrado
+                    //   {
+                    //     isLosted: {
+                    //       equals: found,
+                    //     },
+                    //   },
                     ],
                 }
               })
@@ -93,7 +94,8 @@ export class LostObjectDAO implements ILostObjectDAO {
             }}) 
             return new ResponseModel("successfully registered lost object", false)
         } catch (error) {
-            return new ResponseModel("something went wrong while saving the lost object", true)
+            return error
+            // return new ResponseModel("something went wrong while saving the lost object", true)
         }
     }
 }

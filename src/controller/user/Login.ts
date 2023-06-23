@@ -19,6 +19,7 @@ export class UserLogin {
             let payload = {email: result.data.email, id:result.data.id}
             let token = await jwt.sign(payload, process.env.JWT_SECRET)
             res.setHeader("authorization", token);
+            // TODO Devolver id de usuário
             return res.send(new ResponseModel("You're logged now!", false))
 
         }catch(error){

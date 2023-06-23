@@ -41,6 +41,7 @@ export class UserDAO implements IUserDAO {
             await prisma.user.delete({where:{
                 id:id
             }})
+            //TODO Deletar usuário não gera deleção em cascata para os seus objetos
             return new ResponseModel("user removed successfully", false)
        }catch (error) {
             return new ResponseModel("invalid user id", true)
@@ -111,6 +112,7 @@ export class UserDAO implements IUserDAO {
               };
             return new ResponseModel(userObject, false)
         } catch (error) {
+            // TODO tratar melhor cenário de id inválido
             return new ResponseModel(error.message, true)
         }
     }

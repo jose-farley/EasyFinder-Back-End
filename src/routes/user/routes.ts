@@ -22,10 +22,10 @@ userRoutes.post("/user", multer(multerConfig).single("userImage"), async (req:Re
 userRoutes.post("/user/login", async (req:Request, res:Response)=>{
    return  await new UserLogin().handle(req, res);
 })
-userRoutes.delete("/user/", async (req:Request, res:Response)=>{
+userRoutes.delete("/user", async (req:Request, res:Response)=>{
    return  await new RemoveUser().handle(req, res);
 })
-userRoutes.put("/user/", async (req:Request, res:Response)=>{
+userRoutes.put("/user", async (req:Request, res:Response)=>{
    return  await new UserUpdate().handle(req, res);
 })
 

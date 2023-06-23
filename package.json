@@ -9,7 +9,7 @@
     "test": "vitest --ui --no-threads"
   },
   "devDependencies": {
-    "@prisma/client": "^4.15.0",
+    "@prisma/client": "^4.16.0",
     "@types/express": "^4.17.17",
     "@vitest/ui": "^0.31.0",
     "dotenv": "^16.0.3",
