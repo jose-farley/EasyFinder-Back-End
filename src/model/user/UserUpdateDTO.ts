@@ -22,6 +22,7 @@ export class UserUpdateDTO {
     }
 
     constructor(received:data){
+        if(received.id == undefined) throw new Error("Invalid user id")
         this.setName(received.name);
         this.setEmail(received.email);
         this.setPassword(received.password);
@@ -106,7 +107,7 @@ export class UserUpdateDTO {
         }
     }
     private setId(id:string){
-        if(id.length>8){
+        if(id != undefined || id.length>8){
             this.data.id=id
         }else{
             throw new Error("Invalid user id");
