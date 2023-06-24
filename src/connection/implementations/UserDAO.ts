@@ -12,7 +12,7 @@ interface UserObject {
     state: string;
     street: string;
     perfilImage: string;
-    homeNumber: number;
+    homeNumber: string;
     phoneNumber: string;
   }
 
@@ -72,7 +72,7 @@ export class UserDAO implements IUserDAO {
             }, data:{
                 email:data.getEmail(),
                 name:data.getName(),
-                homeNumber:data.getHomeNumber(),
+                homeNumber: parseInt(data.getHomeNumber()),
                 password:data.getPassword(),
                 phoneNumber:data.getPhoneNumber(),
                 perfilImage:data.getPerfilImage(),
@@ -81,7 +81,7 @@ export class UserDAO implements IUserDAO {
             }})
             return new ResponseModel("user updated successfully", false)
         } catch (error) {
-            return new ResponseModel("something went wrong while updating user", true);
+            return new ResponseModel(error.message, true);
  
         }
     }
@@ -107,7 +107,7 @@ export class UserDAO implements IUserDAO {
                 state: user.state,
                 street: user.street,
                 perfilImage: user.perfilImage,
-                homeNumber: user.homeNumber,
+                homeNumber: user.homeNumber.toString(),
                 phoneNumber: user.phoneNumber,
             };
             return new ResponseModel(userObject, false)

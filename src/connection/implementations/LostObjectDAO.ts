@@ -70,15 +70,15 @@ export class LostObjectDAO implements ILostObjectDAO {
                 id:data.getId()
             }, data:{
                 description:data.getDescription(),
-                isLosted:data.getIsLosted(),
+                isLosted:!!data.getIsLosted(),
                 location:data.getLocation(),
                 objectImage:data.getObjectImage(),
                 owner:data.getOwner(),
                 name:data.getName()
             }})
-            return new ResponseModel("user updated successfully", false)
+            return new ResponseModel("object updated successfully", false)
         } catch (error) {
-            return new ResponseModel("something went wrong while updating user", true);
+            return new ResponseModel(error.message, true);
  
         }
     }
@@ -90,7 +90,7 @@ export class LostObjectDAO implements ILostObjectDAO {
                 location:data.getLocation(),
                 owner:data.getOwner(),
                 objectImage:data.getObjectImage(),
-                isLosted: data.getIsLosted()
+                isLosted: !!data.getIsLosted()
             }}) 
             return new ResponseModel("successfully registered lost object", false)
         } catch (error) {

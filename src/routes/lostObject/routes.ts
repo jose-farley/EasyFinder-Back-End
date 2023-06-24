@@ -25,7 +25,7 @@ lostObjectRoutes.get("/lostObject/:filter/:found", async (req:Request, res:Respo
 lostObjectRoutes.delete("/lostObject", async (req:Request, res:Response)=>{
     return await new RemoveLostObject().handle(req, res);
 })
-lostObjectRoutes.put("/lostObject/", async (req:Request, res:Response)=>{
+lostObjectRoutes.put("/lostObject/", multer(multerConfig).single("objectImage"), async (req:Request, res:Response)=>{
     return  await new LostObjectUpdate().handle(req, res);
  })
 export {lostObjectRoutes}

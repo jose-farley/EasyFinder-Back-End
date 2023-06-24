@@ -5,9 +5,9 @@ import { ResponseModel } from '../../util/ResponseModel';
 export class UserUpdate {
     async handle(request:Request, response:Response){
         try {
-            let connection = new UserDAO();
             let ifFileIsEmpty = ''
             if(request.file == undefined) ifFileIsEmpty = "defaultObject.png"
+            let connection = new UserDAO();
             let userDTO:UserUpdateDTO
             if(ifFileIsEmpty.length >0){
                 userDTO = new UserUpdateDTO(request.body, ifFileIsEmpty); 
