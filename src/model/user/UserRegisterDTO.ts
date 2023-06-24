@@ -73,9 +73,14 @@ export class UserDTO {
         }
         
     }
-    private setPassword(password:string){
-        if(this.checkPassword(password)){
-            this.data.password = bcrypt.hashSync(password, 12);
+     private async setPassword(password:string){
+        if(password.length >= 8){
+          
+        this.data.password = await bcrypt.hashSync(password, 12, (err)=>{
+            console.log(err.message)
+        }); 
+           
+           
         }else{
             throw new Error("Invalid Password");
         }

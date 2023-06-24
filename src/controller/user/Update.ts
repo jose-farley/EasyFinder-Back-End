@@ -6,7 +6,7 @@ export class UserUpdate {
     async handle(request:Request, response:Response){
         try {
             let ifFileIsEmpty = ''
-            if(request.file == undefined) ifFileIsEmpty = "defaultObject.png"
+            if(request.file == undefined) ifFileIsEmpty = "defaultUser.png"
             let connection = new UserDAO();
             let userDTO:UserUpdateDTO
             if(ifFileIsEmpty.length >0){

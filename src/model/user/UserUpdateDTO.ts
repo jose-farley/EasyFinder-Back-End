@@ -80,7 +80,7 @@ export class UserUpdateDTO {
         
     }
     private setPassword(password:string){
-        if(this.checkPassword(password)){
+        if(password.length >= 8){
             this.data.password = password
         }else{
             throw new Error("Invalid Password");

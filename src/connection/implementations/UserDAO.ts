@@ -33,17 +33,18 @@ export class UserDAO implements IUserDAO {
             })
             return new ResponseModel("successfully registered user", false)
        } catch (error) {
-            return new ResponseModel("something went wrong while registering the user", true)
+            return new ResponseModel("something went wrong while registering the user", true, error.message)
        }
     }
     async remove(id:string) {
        try {
+        console.log(id)
             await prisma.user.delete({where:{
                 id:id
             }})
             return new ResponseModel("user removed successfully", false)
        }catch (error) {
-            return new ResponseModel("invalid user id", true)
+            return new ResponseModel("invalid user id", true, error.message)
        }
     }
     async list(): Promise<ResponseModel> {

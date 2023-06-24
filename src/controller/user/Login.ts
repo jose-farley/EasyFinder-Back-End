@@ -7,17 +7,17 @@ import jwt from 'jsonwebtoken'
 export class UserLogin {
     async handle(req:Request, res:Response){
         try{ 
-            console.log(req.body)
             let werePassed = this.passwordAndEmailHasBeenPassed(req);
             if(werePassed.has_error==true) return res.status(400).json(werePassed)
             let userData = new UserLoginDTO(req.body);      
             let connection = new UserDAO();
             let result = await connection.login(userData);
-            if(result.has_error) return res.json(result)
-            let isValidPassword = await bcrypt.compareSync(userData.getPassword(), result.data.password)
-            if(!isValidPassword) return new ResponseModel("E-mail or password not valid", true)
+            if(result.has_error) return res.status(400).json(result)
+            let isValidPassword = await bcrypt.compare( userData.getPassword(), result.data.password,)
+            console.log(isValidPassword)
+            if(isValidPassword) return res.status(400).json(new ResponseModel("E-mail or password not valid", true))
             let payload = {email: result.data.email, id:result.data.id}
-            let token = await jwt.sign(payload, process.env.JWT_SECRET)
+            let token = await jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' })
             res.setHeader("authorization", token);
             return res.send(new ResponseModel("You're logged now!", false))
 

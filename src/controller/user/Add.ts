@@ -11,9 +11,9 @@ export class AddUserController {
             let acess = new UserDAO();
             let user:UserDTO
             if(ifFileIsEmpty.length >0){
-                user = new UserDTO(req.body, ifFileIsEmpty); 
+                user = await new UserDTO(req.body, ifFileIsEmpty); 
             }else{
-                user = new UserDTO(req.body, req.file.filename)
+                user = await new UserDTO(req.body, req.file.filename)
             }
             let result = await acess.save(user);
             if(result.has_error){

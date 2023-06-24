@@ -1,25 +1,17 @@
 interface data {
     id:string
-    name:string
-    isLosted:boolean
-    description:string
-    location:string
-    owner:string
-    objectImage:string
+    name?:string
+    isLosted?:boolean
+    description?:string
+    location?:string
+    owner?:string
+    objectImage?:string
 }
 interface file {
     filename:string
 }
 export class LostObjectUpdateDTO {
-    private data:data = {
-        id:"",
-        name: "",
-        description: "",
-        owner: "",
-        location: "",
-        objectImage: "",
-        isLosted: true
-    }
+    private data:data
     constructor(received:data, file:string){
         this.setId(received.id)
         this.setName(received.name)

@@ -4,7 +4,14 @@ import { prisma } from "../../database";
 import { ResponseModel } from "../../util/ResponseModel";
 import { ILostObjectDAO } from "../interfaces/ILostObjectDAO";
 
-
+interface UpdateObject {
+    id:string
+    name?:string
+    isLosted?:boolean
+    description?:string
+    location?:string
+    owner?:string
+}
 export class LostObjectDAO implements ILostObjectDAO {
     async remove(id: string): Promise<ResponseModel> {
        try {
@@ -64,18 +71,26 @@ export class LostObjectDAO implements ILostObjectDAO {
             return new ResponseModel(error.message, true)
         }
     }
-    async update(data:LostObjectUpdateDTO) {
+    async update(data:UpdateObject, file?:string) {
         try {
+            if(typeof data.isLosted == 'string' && data.isLosted == "true") {
+                data.isLosted = true;
+            }else {
+                data.isLosted = false
+            }
             await prisma.lostObject.update({where:{
-                id:data.getId()
+                id:data.id
             }, data:{
-                description:data.getDescription(),
-                isLosted:!!data.getIsLosted(),
-                location:data.getLocation(),
-                objectImage:data.getObjectImage(),
-                owner:data.getOwner(),
-                name:data.getName()
+               ...data
             }})
+            if(file != undefined){
+                await prisma.lostObject.update({
+                    where:{id:data.id},
+                    data:{
+                        objectImage: file
+                    }
+                })
+            }
             return new ResponseModel("object updated successfully", false)
         } catch (error) {
             return new ResponseModel(error.message, true);
