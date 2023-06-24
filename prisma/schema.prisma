@@ -28,5 +28,5 @@ model lostObject {
   isLosted    Boolean
   location    String
   objectImage String
-  user        User    @relation(fields: [owner], references: [id])
+  user        User    @relation(fields: [owner], references: [id], onDelete: Cascade)
 }

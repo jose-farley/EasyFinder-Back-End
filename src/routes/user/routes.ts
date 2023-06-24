@@ -13,6 +13,7 @@ const userRoutes = Router();
 userRoutes.get("/user", async (req:Request, res:Response)=>{
    return  await new ListUsers().handle(req, res);
 })
+//TODO Id não irá mais trafegar pela rota, já que middleware irá validar pelo token
 userRoutes.get("/user/:id", async (req:Request, res:Response)=>{
    return await new FetchUser().handle(req, res);
 })
@@ -25,7 +26,7 @@ userRoutes.post("/user/login", async (req:Request, res:Response)=>{
 userRoutes.delete("/user", async (req:Request, res:Response)=>{
    return  await new RemoveUser().handle(req, res);
 })
-userRoutes.put("/user", async (req:Request, res:Response)=>{
+userRoutes.put("/user", multer(multerConfig).single("userImage"), async (req:Request, res:Response)=>{
    return  await new UserUpdate().handle(req, res);
 })
 

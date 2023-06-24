@@ -8,7 +8,6 @@ export class LostObjectUpdate {
         try {
             let connection = new LostObjectDAO();
             let ifFileIsEmpty = ''
-            //TODO update de imagem n funciona
             if(request.file == undefined) ifFileIsEmpty = "defaultObject.png"
             let objectDTO:LostObjectUpdateDTO
             if(ifFileIsEmpty.length >0){

@@ -6,7 +6,6 @@ import { UserDTO } from "../../model/user/UserRegisterDTO";
 export class AddUserController {
     async hadnle(req:Request, res:Response){
         try {
-            //TODO Imagem passada na request é ignorada em todos os cenários
             let ifFileIsEmpty = ''
             if(req.file == undefined) ifFileIsEmpty = "defaultUser.png"
             let acess = new UserDAO();

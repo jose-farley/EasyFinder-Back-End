@@ -41,7 +41,6 @@ export class UserDAO implements IUserDAO {
             await prisma.user.delete({where:{
                 id:id
             }})
-            //TODO Deletar usuário não gera deleção em cascata para os seus objetos
             return new ResponseModel("user removed successfully", false)
        }catch (error) {
             return new ResponseModel("invalid user id", true)
@@ -101,6 +100,7 @@ export class UserDAO implements IUserDAO {
     async fetch(id:string){
         try {
             let user =  await prisma.user.findUnique({where:{id:id}})
+            if(!user) throw new Error("User not found");
             const userObject: UserObject = {
                 name: user.name,
                 email: user.email,
@@ -109,10 +109,9 @@ export class UserDAO implements IUserDAO {
                 perfilImage: user.perfilImage,
                 homeNumber: user.homeNumber,
                 phoneNumber: user.phoneNumber,
-              };
+            };
             return new ResponseModel(userObject, false)
         } catch (error) {
-            // TODO tratar melhor cenário de id inválido
             return new ResponseModel(error.message, true)
         }
     }
