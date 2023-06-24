@@ -22,7 +22,7 @@ export class AddUserController {
                 return res.status(200).json(result)
             }
         } catch (error) {
-            return res.json(new ResponseModel(error.message, true))  ;
+            return res.json(new ResponseModel(error.message, true));
         }   
     }
 }

@@ -34,16 +34,6 @@ export class UserDTO {
         this.setPhoneNumber(received.phoneNumber);
         this.setUserImage(file);
     }
-    private setUserImage(perfilImage: string) {
-        if(perfilImage == undefined){
-            this.data.perfilImage = "defaultUser.png";
-        }else{
-            this.data.perfilImage = perfilImage;
-        }
-    }
-    getPerfilImage():string{
-        return this.data.perfilImage;
-    }
     getName():string{
         return this.data.name
     }
@@ -65,6 +55,16 @@ export class UserDTO {
     getPhoneNumber():string{
         return this.data.phoneNumber
     }
+    getPerfilImage():string{
+        return this.data.perfilImage;
+    }
+    private setUserImage(perfilImage: string) {
+        if(perfilImage == undefined){
+            this.data.perfilImage = "defaultUser.png";
+        }else{
+            this.data.perfilImage = perfilImage;
+        }
+    }
     private setName(name:string){
         if(name.length >= 4){
             this.data.name = name;
@@ -74,7 +74,7 @@ export class UserDTO {
         
     }
     private setPassword(password:string){
-        if(password.length > 8){
+        if(this.checkPassword(password)){
             this.data.password = bcrypt.hashSync(password, 12);
         }else{
             throw new Error("Invalid Password");
@@ -115,9 +115,9 @@ export class UserDTO {
             throw new Error("Invalid Phone Number");
         }
     }
-    private checkPassword(password:string){
-        let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-        return passwordPattern.test(password);
+    private checkPassword(password:string) {
+        let passwordTest =  /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        return passwordTest.test(password); 
     }
     private checkEmail(email:string) {
         let emailPattern =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;

@@ -38,20 +38,25 @@ export class LostObjectRegisterDTO {
             this.data.objectImage = objectImage;
         }
     }
-    public getObjectImage():string {
-        return this.data.objectImage;
-    }
     private setLocation(location:string){
+        if(location == undefined) {
+            throw new Error("Invalid location")            
+        }
         this.data.location=location
     }
     private setDescription(description:string){
         if(description==undefined || description.length < 5){
-            throw new Error("invalid description")
+            throw new Error("Invalid description")
+        } else {
+            this.data.description = description
         }
-        this.data.description = description
     }
     private setIsLosted(isLosted:boolean){
-        this.data.isLosted = isLosted
+        if(isLosted == undefined){
+            throw new Error("Invalid lost status")
+        } else {
+            this.data.isLosted = isLosted
+        }
     }
     private setOwner(id:string){
         if(id == undefined || id.length < 8){
@@ -71,7 +76,10 @@ export class LostObjectRegisterDTO {
     getIsLosted():boolean{
         return this.data.isLosted
     }
-    getLocation(){
+    getLocation():string{
         return this.data.location
+    }
+    getObjectImage():string{
+        return this.data.objectImage
     }
 }

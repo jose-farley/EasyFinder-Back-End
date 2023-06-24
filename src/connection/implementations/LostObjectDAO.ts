@@ -16,15 +16,49 @@ export class LostObjectDAO implements ILostObjectDAO {
     }
     async fetch(id: string): Promise<ResponseModel> {
         try {
-            let result = await prisma.lostObject.findMany({where:{owner:id}})
+            let result = await prisma.lostObject.findUnique({where: {id:id}})
             return new ResponseModel(result, false)
         } catch (error) {
             return new ResponseModel(error.message, true)
         }
     }
-    async list(req:Request): Promise<ResponseModel> {
+    async filter(filter: string, found: boolean): Promise<ResponseModel> {
         try {
-            let lostObjects = await prisma.lostObject.findMany({})  
+            let result = await prisma.lostObject.findMany({
+                where: {
+                    OR: [
+                      {
+                        name: {
+                          contains: filter,
+                        },
+                      },
+                      {
+                        description: {
+                          contains: filter,
+                        },
+                      },
+                      {
+                        owner: {
+                          contains: filter,
+                        },
+                      },
+                    //TODO Filtro para produto encontrado ou não encontrado
+                    //   {
+                    //     isLosted: {
+                    //       equals: found,
+                    //     },
+                    //   },
+                    ],
+                }
+              })
+            return new ResponseModel(result, false)
+        } catch (error) {
+            return new ResponseModel(error.message, true)
+        }
+    }
+    async list(): Promise<ResponseModel> {
+        try {
+            let lostObjects = await prisma.lostObject.findMany()  
             return new ResponseModel(lostObjects, false)
         } catch (error) {
             return new ResponseModel(error.message, true)
@@ -36,16 +70,15 @@ export class LostObjectDAO implements ILostObjectDAO {
                 id:data.getId()
             }, data:{
                 description:data.getDescription(),
-                isLosted:data.getIsLosted(),
+                isLosted:!!data.getIsLosted(),
                 location:data.getLocation(),
+                objectImage:data.getObjectImage(),
                 owner:data.getOwner(),
                 name:data.getName()
-                //TODO: USER e OWNER?
-                // user:data.getUser                
             }})
-            return new ResponseModel("user updated successfully", false)
+            return new ResponseModel("object updated successfully", false)
         } catch (error) {
-            return new ResponseModel("something went wrong while updating user", true);
+            return new ResponseModel(error.message, true);
  
         }
     }
@@ -57,11 +90,12 @@ export class LostObjectDAO implements ILostObjectDAO {
                 location:data.getLocation(),
                 owner:data.getOwner(),
                 objectImage:data.getObjectImage(),
-                isLosted: data.getIsLosted()
+                isLosted: !!data.getIsLosted()
             }}) 
             return new ResponseModel("successfully registered lost object", false)
         } catch (error) {
-            return new ResponseModel("something went wrong while saving the lost object", true)
+            return error
+            // return new ResponseModel("something went wrong while saving the lost object", true)
         }
     }
 }

@@ -6,8 +6,12 @@ interface data {
      email:string
      state:string
      street:string
-     homeNumber:number
+     homeNumber:string
      phoneNumber:string
+     perfilImage:string
+}
+interface file {
+    filename:string
 }
 export class UserUpdateDTO {
     private data:data  = {
@@ -17,12 +21,12 @@ export class UserUpdateDTO {
         email: "",
         state: "",
         street: "",
-        homeNumber: 0,
+        perfilImage:"",
+        homeNumber: "",
         phoneNumber: ""
     }
 
-    constructor(received:data){
-        if(received.id == undefined) throw new Error("Invalid user id")
+    constructor(received:data, file:string){
         this.setName(received.name);
         this.setEmail(received.email);
         this.setPassword(received.password);
@@ -30,7 +34,8 @@ export class UserUpdateDTO {
         this.setStreet(received.street);
         this.setHomeNumber(received.homeNumber);
         this.setPhoneNumber(received.phoneNumber);
-        this.setId(received.id)
+        this.setId(received.id);
+        this.setUserImage(file);
     }
     getName():string{
         return this.data.name
@@ -41,7 +46,7 @@ export class UserUpdateDTO {
     getEmail():string{
         return this.data.email
     }
-    getHomeNumber():number{
+    getHomeNumber():string{
         return this.data.homeNumber
     }
     getStreet():string{
@@ -56,6 +61,16 @@ export class UserUpdateDTO {
     getId(){
         return this.data.id
     }
+    getPerfilImage():string{
+        return this.data.perfilImage;
+    }
+    private setUserImage(perfilImage: string) {
+        if(perfilImage == undefined){
+            this.data.perfilImage = "defaultUser.png";
+        }else{
+            this.data.perfilImage = perfilImage;
+        }
+    }
     private setName(name:string){
         if(name.length >= 4){
             this.data.name = name;
@@ -65,7 +80,7 @@ export class UserUpdateDTO {
         
     }
     private setPassword(password:string){
-        if(password.length > 8){
+        if(this.checkPassword(password)){
             this.data.password = password
         }else{
             throw new Error("Invalid Password");
@@ -92,8 +107,8 @@ export class UserUpdateDTO {
             throw new Error("Invalid Street");
         }
     }
-    private setHomeNumber(homeNumber:number){
-        if(homeNumber>0){
+    private setHomeNumber(homeNumber:string){
+        if(homeNumber){
             this.data.homeNumber = homeNumber;
         }else{
             throw new Error("Invalid Home Number");
@@ -113,9 +128,15 @@ export class UserUpdateDTO {
             throw new Error("Invalid user id");
         }
     }
+
+    private checkPassword(password:string) {
+        let passwordTest =  /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        return passwordTest.test(password); 
+    }
+
     private checkEmail(email:string) {
         let emailPattern =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-         return emailPattern.test(email); 
+        return emailPattern.test(email); 
     }
     private checkPhoneNumber(phoneNumber:string){
         let phoneNumberPattern = /^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$/
