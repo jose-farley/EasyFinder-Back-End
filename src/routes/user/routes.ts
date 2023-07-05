@@ -8,6 +8,7 @@ import { UserUpdate } from "../../controller/user/Update";
 import multer from 'multer';
 import { multerConfig } from "../../config/multer";
 import { FetchUser } from "../../controller/user/Fetch";
+import { FetchUserByEmail } from "../../controller/user/FetchByEmail";
 import { verifyToken } from "../../middlewares/verifyToken";
 import { LogOutController } from "../../controller/user/LogOut";
 const userRoutes = Router();
@@ -15,9 +16,11 @@ const userRoutes = Router();
 userRoutes.get("/user", verifyToken, async (req:Request, res:Response)=>{
    return  await new ListUsers().handle(req, res);
 })
-//TODO Id não irá mais trafegar pela rota, já que middleware irá validar pelo token
 userRoutes.get("/user/:id", verifyToken, async (req:Request, res:Response)=>{
    return await new FetchUser().handle(req, res);
+})
+userRoutes.get("/uniqueUser/:email", verifyToken, async (req:Request, res:Response)=>{
+   return await new FetchUserByEmail().handle(req, res);
 })
 userRoutes.post("/user", multer(multerConfig).single("userImage"), async (req:Request, res:Response)=>{
    return  await new AddUserController().hadnle(req, res);

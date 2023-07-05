@@ -117,4 +117,22 @@ export class UserDAO implements IUserDAO {
         }
     }
     
+    async fetchByEmail(email:string){
+        try {
+            let user =  await prisma.user.findUnique({where:{email:email}})
+            if(!user) throw new Error("User not found");
+            const userObject: UserObject = {
+                name: user.name,
+                email: user.email,
+                state: user.state,
+                street: user.street,
+                perfilImage: user.perfilImage,
+                homeNumber: user.homeNumber.toString(),
+                phoneNumber: user.phoneNumber,
+            };
+            return new ResponseModel(userObject, false)
+        } catch (error) {
+            return new ResponseModel(error.message, true)
+        }
+    }
 }
