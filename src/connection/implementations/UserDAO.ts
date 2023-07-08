@@ -14,6 +14,7 @@ interface UserObject {
     perfilImage: string;
     homeNumber: string;
     phoneNumber: string;
+    id: string;
   }
 
 export class UserDAO implements IUserDAO {
@@ -110,6 +111,7 @@ export class UserDAO implements IUserDAO {
                 perfilImage: user.perfilImage,
                 homeNumber: user.homeNumber.toString(),
                 phoneNumber: user.phoneNumber,
+                id: user.id
             };
             return new ResponseModel(userObject, false)
         } catch (error) {
@@ -129,6 +131,7 @@ export class UserDAO implements IUserDAO {
                 perfilImage: user.perfilImage,
                 homeNumber: user.homeNumber.toString(),
                 phoneNumber: user.phoneNumber,
+                id:user.id,
             };
             return new ResponseModel(userObject, false)
         } catch (error) {
