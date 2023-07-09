@@ -9,6 +9,7 @@ import { LostObjectUpdate } from "../../controller/lostObject/Update";
 import multer from "multer";
 import { multerConfig } from "../../config/multer";
 import { verifyToken } from "../../middlewares/verifyToken";
+import { ListLostObjectsByUser } from "../../controller/lostObject/ListByUser";
 const lostObjectRoutes = Router();
 
 lostObjectRoutes.post("/lostObject", verifyToken, multer(multerConfig).single("objectImage"), async (req:Request, res:Response)=>{
@@ -16,6 +17,9 @@ lostObjectRoutes.post("/lostObject", verifyToken, multer(multerConfig).single("o
 })
 lostObjectRoutes.get("/lostObject", verifyToken,async (req:Request, res:Response)=>{
     return await new ListLostObjects().handle(req, res);
+})
+lostObjectRoutes.get("/lostObject/:id", verifyToken,async (req:Request, res:Response)=>{
+    return await new ListLostObjectsByUser().handle(req, res);
 })
 lostObjectRoutes.get("/lostObject/:id", verifyToken, async (req:Request, res:Response)=>{
     return await new FetchLostObject().handle(req, res);

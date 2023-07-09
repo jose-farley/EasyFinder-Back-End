@@ -71,6 +71,14 @@ export class LostObjectDAO implements ILostObjectDAO {
             return new ResponseModel(error.message, true)
         }
     }
+    async listByUser(id: string): Promise<ResponseModel> {
+        try {
+            let lostObjects = await prisma.lostObject.findMany({where: {owner:id}})  
+            return new ResponseModel(lostObjects, false)
+        } catch (error) {
+            return new ResponseModel(error.message, true)
+        }
+    }
     async update(data:UpdateObject, file?:string) {
         try {
             if(typeof data.isLosted == 'string' && data.isLosted == "true") {
