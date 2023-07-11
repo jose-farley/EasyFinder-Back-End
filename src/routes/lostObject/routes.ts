@@ -21,7 +21,7 @@ lostObjectRoutes.get("/lostObject", verifyToken,async (req:Request, res:Response
 lostObjectRoutes.get("/lostObject/:id", verifyToken,async (req:Request, res:Response)=>{
     return await new ListLostObjectsByUser().handle(req, res);
 })
-lostObjectRoutes.get("/lostObject/:id", verifyToken, async (req:Request, res:Response)=>{
+lostObjectRoutes.get("/lostObjectById/:id", verifyToken, async (req:Request, res:Response)=>{
     return await new FetchLostObject().handle(req, res);
 } )
 lostObjectRoutes.get("/lostObject/:filter/:found",verifyToken, async (req:Request, res:Response)=>{
