@@ -9,6 +9,7 @@ export interface IUserDAO {
     remove(id:string):Promise<ResponseModel>;
     list():Promise<ResponseModel>;
     fetch(id:string):Promise<ResponseModel>;
+    updatePic(data:UserUpdateDTO):Promise<ResponseModel>;
     update(data:UserUpdateDTO):Promise<ResponseModel>;
     login(data:UserLoginDTO):Promise<ResponseModel>
 }

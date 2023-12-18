@@ -75,9 +75,27 @@ export class UserDAO implements IUserDAO {
                 email:data.getEmail(),
                 name:data.getName(),
                 homeNumber: parseInt(data.getHomeNumber()),
-                password:data.getPassword(),
                 phoneNumber:data.getPhoneNumber(),
                 perfilImage:data.getPerfilImage(),
+                state:data.getState(),
+                street:data.getStreet()
+            }})
+            return new ResponseModel("user updated successfully", false)
+        } catch (error) {
+            return new ResponseModel(error.message, true);
+ 
+        }
+    }
+    async updatePic(data:UserUpdateDTO) {
+        try {
+            await prisma.user.update({where:{
+                id:data.getId()
+            }, data:{
+                email:data.getEmail(),
+                name:data.getName(),
+                homeNumber: parseInt(data.getHomeNumber()),
+                phoneNumber:data.getPhoneNumber(),
+                //perfilImage:data.getPerfilImage(),
                 state:data.getState(),
                 street:data.getStreet()
             }})

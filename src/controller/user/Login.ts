@@ -16,7 +16,7 @@ export class UserLogin {
             if(result.has_error) return res.status(400).json(result)
             let isValidPassword = await bcrypt.compare( userData.getPassword(), result.data.password,)
             console.log(isValidPassword)
-            if(isValidPassword) return res.status(400).json(new ResponseModel("E-mail or password not valid", true))
+            if(!isValidPassword) return res.status(500).json(new ResponseModel("E-mail or password not valid", true))
             let payload = {email: result.data.email, id:result.data.id}
             let token =  jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' })
             // res.setHeader("authorization", token);

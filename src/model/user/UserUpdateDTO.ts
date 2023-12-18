@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt'
 interface data {
      id:string
      name:string
-     password:string
      email:string
      state:string
      street:string
@@ -17,7 +16,6 @@ export class UserUpdateDTO {
     private data:data  = {
         id:"",
         name: "",
-        password: "",
         email: "",
         state: "",
         street: "",
@@ -29,7 +27,6 @@ export class UserUpdateDTO {
     constructor(received:data, file:string){
         this.setName(received.name);
         this.setEmail(received.email);
-        this.setPassword(received.password);
         this.setState(received.state);
         this.setStreet(received.street);
         this.setHomeNumber(received.homeNumber);
@@ -40,9 +37,7 @@ export class UserUpdateDTO {
     getName():string{
         return this.data.name
     }
-    getPassword():string{
-        return this.data.password
-    }
+ 
     getEmail():string{
         return this.data.email
     }
@@ -78,13 +73,6 @@ export class UserUpdateDTO {
             throw new Error("Invalid Name");
         }
         
-    }
-    private setPassword(password:string){
-        if(password.length >= 8){
-            this.data.password = password
-        }else{
-            throw new Error("Invalid Password");
-        }
     }
     private setEmail(email:string){
         if(this.checkEmail(email)){

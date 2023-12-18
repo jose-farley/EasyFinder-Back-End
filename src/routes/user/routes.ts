@@ -11,6 +11,7 @@ import { FetchUser } from "../../controller/user/Fetch";
 import { FetchUserByEmail } from "../../controller/user/FetchByEmail";
 import { verifyToken } from "../../middlewares/verifyToken";
 import { LogOutController } from "../../controller/user/LogOut";
+import { UserUpdatePic } from "../../controller/user/UpdatePic";
 const userRoutes = Router();
 
 userRoutes.get("/user", verifyToken, async (req:Request, res:Response)=>{
@@ -23,6 +24,8 @@ userRoutes.get("/uniqueUser/:email", verifyToken, async (req:Request, res:Respon
    return await new FetchUserByEmail().handle(req, res);
 })
 userRoutes.post("/user", multer(multerConfig).single("userImage"), async (req:Request, res:Response)=>{
+   console.log(req.file)
+   console.log(req.body)
    return  await new AddUserController().hadnle(req, res);
 })
 userRoutes.post("/user/login", async (req:Request, res:Response)=>{
@@ -33,6 +36,9 @@ userRoutes.delete("/user", verifyToken, async (req:Request, res:Response)=>{
 })
 userRoutes.put("/user",verifyToken, multer(multerConfig).single("userImage"), async (req:Request, res:Response)=>{
    return  await new UserUpdate().handle(req, res);
+})
+userRoutes.put("/user/pic/",verifyToken, multer(multerConfig).single("userImage"), async (req:Request, res:Response)=>{
+   return  await new UserUpdatePic().handle(req, res);
 })
 userRoutes.get("/logOut",verifyToken, async (req:Request, res:Response)=>{
   
